@@ -5,6 +5,8 @@ RUN bundle update \
   && bundle install --with docker \
   && adduser bot
 COPY . .
+RUN mv docker-entrypoint.sh / \
+  && chmod +x /docker-entrypoint.sh
 USER bot
 
-CMD ["/usr/local/bundle/bin/puma", "-p", "8080"]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
